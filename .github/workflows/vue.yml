@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-name: React
+name: Vue
 on:
     push:
         branches-ignore:
@@ -60,77 +60,73 @@ jobs:
                 node_version: [12.16.1]
                 os: [ubuntu-latest]
                 app-type:
-                    - react-default
-                    - react-maven-psql-es-noi18n-mapsid
-                    - react-maven-h2mem-memcached
-                    - react-maven-cassandra-session-redis
-                    - react-maven-couchbase-caffeine
-                    - react-gradle-psql-es-noi18n-mapsid
-                    - react-gradle-h2mem-memcached
-                    - react-gradle-cassandra-session-redis
-                    - react-gradle-couchbase-caffeine
+                    - vue-default
+                    - vue-noi18n
+                    - vue-fulli18n-es
+                    - vue-gateway
+                    - vue-gradle-session
+                    - vue-ws-theme
+                    - vue-oauth2
+                    - vue-couchbase
+                    - vue-mongodb-kafka-cucumber
+                    - vue-session-cassandra-fr
                 include:
-                    - app-type: react-default
+                    - app-type: vue-default
                       entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                      testcontainers: 0
-                    - app-type: react-maven-psql-es-noi18n-mapsid
-                      entity: sqlfull
-                      profile: prod
-                      war: 0
-                      protractor: 1
-                      testcontainers: 1
-                    - app-type: react-maven-h2mem-memcached
+                    - app-type: vue-noi18n
                       entity: sql
-                      profile: dev,webpack
-                      war: 0 # TODO: need change to 1, when maven+war is fixed
-                      protractor: 1
-                      testcontainers: 0
-                    - app-type: react-maven-cassandra-session-redis
-                      entity: cassandra
                       profile: prod
                       war: 0
                       protractor: 1
-                      testcontainers: 0
-                    - app-type: react-maven-couchbase-caffeine
-                      entity: couchbase
-                      profile: prod
-                      war: 0
-                      protractor: 0
-                      testcontainers: 0
-                    - app-type: react-gradle-psql-es-noi18n-mapsid
-                      entity: sqlfull
+                    - app-type: vue-fulli18n-es
+                      entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                      testcontainers: 0
-                    - app-type: react-gradle-h2mem-memcached
+                    - app-type: vue-gateway
                       entity: sql
                       profile: dev,webpack
-                      war: 1
+                      war: 0
                       protractor: 1
-                      testcontainers: 0
-                    - app-type: react-gradle-cassandra-session-redis
-                      entity: cassandra
+                    - app-type: vue-gradle-session
+                      entity: sql
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
+                    - app-type: vue-ws-theme
+                      entity: sql
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
+                    - app-type: vue-oauth2
+                      entity: sql
                       profile: prod
                       war: 0
                       protractor: 1
-                      testcontainers: 0
-                    - app-type: react-gradle-couchbase-caffeine
+                    - app-type: vue-couchbase
                       entity: couchbase
-                      profile: prod
+                      profile: dev,webpack
                       war: 0
                       protractor: 1
-                      testcontainers: 0
+                    - app-type: vue-mongodb-kafka-cucumber
+                      entity: mongodb
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
+                    - app-type: vue-session-cassandra-fr
+                      entity: cassandra
+                      profile: dev,webpack
+                      war: 0
+                      protractor: 1
         env:
             JHI_ENTITY: ${{ matrix.entity }}
             JHI_APP: ${{ matrix.app-type }}
             JHI_PROFILE: ${{ matrix.profile }}
             JHI_WAR: ${{ matrix.war }}
             JHI_PROTRACTOR: ${{ matrix.protractor }}
-            JHI_TESTCONTAINERS: ${{ matrix.testcontainers }}
         steps:
             #----------------------------------------------------------------------
             # Install all tools and check configuration
